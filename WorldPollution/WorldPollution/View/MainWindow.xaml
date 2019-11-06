@@ -1,0 +1,89 @@
+﻿<Window x:Class="WorldPollution.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldPollution"
+        xmlns:viewmodel="clr-namespace:WorldPollution.ViewModel"
+        Title="WorldPollution"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d" Height="800" Width="1400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" 
+        xmlns:ext="clr-namespace:WorldPollution.Extensions">
+
+    <Window.Resources>
+        <viewmodel:ApplicationViewModel x:Key="ApplicationViewModel"/>
+    </Window.Resources>
+
+    <Grid Background="#FFEEEEEE" MouseLeftButtonDown="Grid_MouseDown" DataContext="{StaticResource ApplicationViewModel}">
+        <StackPanel VerticalAlignment="Top">
+            <Grid Background="#FF0069C0" Height="10"/>
+            <Grid Margin="5">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="World Pollution" VerticalAlignment="Center" FontSize="20" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Button x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Command="{Binding CloseApplicationCommand}">
+                        <materialDesign:PackIcon Kind="Power"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Grid Margin="250 55 0 0">
+            <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Width="250" HorizontalAlignment="Left" Background="#FF222222">
+            <Image VerticalAlignment="Top" Width="150" Margin="0,25,0,0" Source="/Images/ApplicationIcon.png"></Image>
+            <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                <Grid x:Name="GridCursor" Margin="0 200 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
+            </materialDesign:TransitioningContent>
+            <ext:ListViewMenu Margin="0 200" Style="{StaticResource MaterialDesignListView}" x:Name="ListViewMenu" SelectedIndex="0" FontFamily="Champagne &amp; Limousines" FontSize="18" Foreground="LightGray">
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Continents Pollution" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Countries Pollution" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Manage Continents" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                <ListViewItem Height="60">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Manage Countries" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+            </ext:ListViewMenu>
+        </Grid>
+        <materialDesign:DialogHost HorizontalAlignment="Center" VerticalAlignment="Center" IsOpen="{Binding IsWarningDialogOpen}" CloseOnClickAway="True">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid>
+                <StackPanel Height="75" Width="300" >
+                        <TextBlock Margin="10,10,10,10" HorizontalAlignment="Center" FontFamily="Champagne &amp; Limousines" FontSize="18">Error: Item already exists!</TextBlock>
+                    </StackPanel>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" IsCancel="True" Command="{Binding CloseErrorModalCommand}" Width="auto" VerticalAlignment="Bottom">
+                        <Button.CommandParameter>
+                            <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                False
+                            </system:Boolean>
+                        </Button.CommandParameter>
+                        Close
+                    </Button>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+    </Grid>
+
+</Window>
